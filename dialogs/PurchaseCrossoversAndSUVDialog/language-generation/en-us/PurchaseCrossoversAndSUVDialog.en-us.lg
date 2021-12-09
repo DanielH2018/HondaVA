@@ -1,0 +1,69 @@
+[import](common.lg)
+
+# SendActivity_eF82lJ()
+[Activity
+    Text = ${SendActivity_eF82lJ_text()}
+]
+
+# SendActivity_eF82lJ_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=hr-v&modelyear=2022
+# SendActivity_1NQ2wm()
+[Activity
+    Text = ${SendActivity_1NQ2wm_text()}
+]
+
+# SendActivity_1NQ2wm_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=cr-v&modelyear=2022
+# SendActivity_Uvj4ew()
+[Activity
+    Text = ${SendActivity_Uvj4ew_text()}
+]
+
+# SendActivity_Uvj4ew_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=cr-v&modelyear=2022&tw=hybrid
+# SendActivity_tK7FgL()
+[Activity
+    Text = ${SendActivity_tK7FgL_text()}
+]
+
+# SendActivity_tK7FgL_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=pilot&modelyear=2022
+# SendActivity_uwmLeP()
+[Activity
+    Text = ${SendActivity_uwmLeP_text()}
+]
+
+# SendActivity_uwmLeP_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=passport&modelyear=2021
+# ChoiceInput_Prompt_DxffIe_text()
+- Select which option you would like to choose.
+# ChoiceInput_Prompt_DxffIe()
+[Activity
+    Text = ${ChoiceInput_Prompt_DxffIe_text()}
+]
+
+# SendActivity_Oyz1si_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[15]}```
+# SendActivity_Oyz1si()
+[Activity
+    Text = ${SendActivity_Oyz1si_text()}
+]
+
+# SendActivity_jakyf4_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[19]}```
+# SendActivity_jakyf4()
+[Activity
+    Text = ${SendActivity_jakyf4_text()}
+]
+
+# SendActivity_hyuDaI()
+[Activity
+    Text = ${SendActivity_hyuDaI_text()}
+]
+
+# SendActivity_hyuDaI_text()
+- Check out these Crossover and SUV options:

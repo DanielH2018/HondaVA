@@ -1,0 +1,34 @@
+[import](common.lg)
+
+# SendActivity_3RPvFa()
+[Activity
+    Text = ${SendActivity_3RPvFa_text()}
+]
+
+# SendActivity_3RPvFa_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=odyssey&modelyear=2022
+# SendActivity_DjZGws_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[15]}```
+# SendActivity_DjZGws()
+[Activity
+    Text = ${SendActivity_DjZGws_text()}
+]
+
+# SendActivity_w4JGj1_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[19]}```
+# SendActivity_w4JGj1()
+[Activity
+    Text = ${SendActivity_w4JGj1_text()}
+]
+
+# SendActivity_4l5mKV()
+[Activity
+    Text = ${SendActivity_4l5mKV_text()}
+]
+
+# SendActivity_4l5mKV_text()
+- Check out these Minivan and Truck options:

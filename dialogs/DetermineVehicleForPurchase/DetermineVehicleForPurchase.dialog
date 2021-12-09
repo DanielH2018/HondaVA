@@ -1,0 +1,1251 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "VVJDmV",
+    "name": "DetermineVehicleForPurchase",
+    "comment": "Used to determine the vehicle that the customer wants to purchase."
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "cDuKiQ"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "6QzwS8"
+          },
+          "condition": "user.webscrapeCars != \"\"",
+          "elseActions": [
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "KsAL4X"
+              },
+              "property": "dialog.webscrape_base_url",
+              "value": "='https://webscrapedatalake.blob.core.windows.net/scraperesults/'"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "qXpLiF"
+              },
+              "property": "dialog.webscrape_params",
+              "value": "='?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacupx&se=2021-12-11T07:34:56Z&st=2021-11-23T23:34:56Z&spr=https&sig=xp1u3D6gQAHAH5Diy5hzK16D7OHhums2HqExrMdvw%2Fs%3D'"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "M2UIFa"
+              },
+              "property": "dialog.container_list_url",
+              "value": "=concat(concat(dialog.webscrape_base_url, dialog.webscrape_params), '&restype=container&comp=list')"
+            },
+            {
+              "$kind": "Microsoft.HttpRequest",
+              "$designer": {
+                "id": "6PfXUF"
+              },
+              "resultProperty": "dialog.response_file_list",
+              "method": "GET",
+              "contentType": "application/xml",
+              "url": "=dialog.container_list_url"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "gSDBjD"
+              },
+              "property": "dialog.files",
+              "value": "=xPath(dialog.response_file_list.content, '/EnumerationResults/Blobs/Blob/Name/text()')"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "91L8y3"
+              },
+              "property": "dialog.recent_car_file",
+              "value": "=last(where(dialog.files, x, startsWith(x, 'cars')))"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "oS3Hx4"
+              },
+              "property": "dialog.file_url",
+              "value": "=concat(concat(dialog.webscrape_base_url, dialog.recent_car_file), dialog.webscrape_params)"
+            },
+            {
+              "$kind": "Microsoft.HttpRequest",
+              "$designer": {
+                "id": "8C7d7O"
+              },
+              "resultProperty": "dialog.web_response",
+              "method": "GET",
+              "url": "=string(dialog.file_url)",
+              "contentType": "application/json",
+              "responseType": "json"
+            },
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "CMr0cW"
+              },
+              "condition": "dialog.web_response.statusCode == 200",
+              "elseActions": [
+                {
+                  "$kind": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "A76pKP"
+                  },
+                  "activity": "${SendActivity_A76pKP()}"
+                }
+              ],
+              "actions": [
+                {
+                  "$kind": "Microsoft.SetProperty",
+                  "$designer": {
+                    "id": "L61nsY"
+                  },
+                  "property": "user.webscrapeCars",
+                  "value": "=split(string(dialog.web_response.content), '{')"
+                },
+                {
+                  "$kind": "Microsoft.SetProperty",
+                  "$designer": {
+                    "id": "JMr6RJ"
+                  },
+                  "property": "dialog.prop1",
+                  "value": "=user.webscrapeCars[0]"
+                },
+                {
+                  "$kind": "Microsoft.SetProperty",
+                  "$designer": {
+                    "id": "SnBcz2"
+                  },
+                  "property": "dialog.prop2",
+                  "value": "=user.webscrapeCars[1]"
+                },
+                {
+                  "$kind": "Microsoft.EditArray",
+                  "$designer": {
+                    "id": "U94CJn"
+                  },
+                  "changeType": "remove",
+                  "itemsProperty": "user.webscrapeCars",
+                  "value": "${dialog.prop1}"
+                },
+                {
+                  "$kind": "Microsoft.EditArray",
+                  "$designer": {
+                    "id": "nUMzaa"
+                  },
+                  "changeType": "remove",
+                  "itemsProperty": "user.webscrapeCars",
+                  "value": "${dialog.prop2}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "kD22FA",
+            "comment": "Determine if the user gave a car value"
+          },
+          "condition": "dialog.vehicletype == \"\"",
+          "actions": [
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "SSlvf8",
+                "comment": "Check for price or gas mileage"
+              },
+              "elseActions": [
+                {
+                  "$kind": "Microsoft.ChoiceInput",
+                  "$designer": {
+                    "id": "UmVmNB"
+                  },
+                  "defaultLocale": "en-us",
+                  "disabled": false,
+                  "maxTurnCount": 3,
+                  "alwaysPrompt": false,
+                  "allowInterruptions": false,
+                  "prompt": "${ChoiceInput_Prompt_UmVmNB()}",
+                  "unrecognizedPrompt": "",
+                  "invalidPrompt": "",
+                  "choiceOptions": {
+                    "includeNumbers": true,
+                    "inlineOrMore": ", or ",
+                    "inlineSeparator": ",",
+                    "inlineOr": "or"
+                  },
+                  "property": "dialog.vehicletype",
+                  "choices": [
+                    "Sedan",
+                    "SUV",
+                    "Truck",
+                    "Minivan",
+                    "Hatchback",
+                    "Crossover"
+                  ],
+                  "recognizerOptions": {
+                    "recognizeOrdinals": true
+                  }
+                }
+              ],
+              "condition": "dialog.number != \"\""
+            }
+          ],
+          "elseActions": []
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "yQrlTY",
+            "comment": "sets the users car value to lower case for the switch statement"
+          },
+          "value": "=toLower(dialog.vehicletype)",
+          "property": "dialog.vehicletype"
+        },
+        {
+          "$kind": "Microsoft.SwitchCondition",
+          "$designer": {
+            "id": "OtnPtT",
+            "comment": "Determines which vehicle dialog to pursue"
+          },
+          "condition": "dialog.vehicletype",
+          "cases": [
+            {
+              "value": "suv",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "sxM2HM"
+                  },
+                  "condition": "=user.CrossoverSUVInfo == []",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "zjoy8U"
+                      },
+                      "property": "dialog.check",
+                      "value": "=\"suv\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "WQOurm"
+                      },
+                      "property": "dialog.prereq",
+                      "value": "=\"false\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "TWkTh6"
+                      },
+                      "property": "dialog.continue",
+                      "value": "=\"true\""
+                    },
+                    {
+                      "$kind": "Microsoft.Foreach",
+                      "$designer": {
+                        "id": "PJ0vo5"
+                      },
+                      "index": "dialog.foreach.index",
+                      "value": "dialog.foreach.value",
+                      "itemsProperty": "user.webscrapeCars",
+                      "actions": [
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "CmrKKZ"
+                          },
+                          "condition": "=contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.SetProperty",
+                              "$designer": {
+                                "id": "JntOjq"
+                              },
+                              "property": "dialog.prereq",
+                              "value": "=\"true\""
+                            }
+                          ],
+                          "elseActions": []
+                        },
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "sQmsze"
+                          },
+                          "condition": "=contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "7zGXiO"
+                              },
+                              "condition": "=contains(dialog.continue, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.EditArray",
+                                  "$designer": {
+                                    "id": "VYpYfj"
+                                  },
+                                  "value": "${dialog.foreach.value}",
+                                  "changeType": "push",
+                                  "itemsProperty": "user.CrossoverSUVInfo"
+                                }
+                              ]
+                            }
+                          ],
+                          "elseActions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "EBblfc"
+                              },
+                              "condition": "=!contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.SetProperty",
+                                  "$designer": {
+                                    "id": "mIDF3T"
+                                  },
+                                  "property": "dialog.continue",
+                                  "value": "=\"false\""
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$kind": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "TzVfJF"
+                  },
+                  "activityProcessed": true,
+                  "dialog": "PurchaseCrossoversAndSUVDialog",
+                  "options": {
+                    "vehicletype": "${dialog.vehicletype}",
+                    "number": "${dialog.number}",
+                    "vehiclemodel": "${dialog.vehiclemodel}"
+                  }
+                }
+              ]
+            },
+            {
+              "value": "crossover",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "ZwLYnG"
+                  },
+                  "condition": "=user.CrossoverSUVInfo == []",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "4AY9dI"
+                      },
+                      "property": "dialog.check",
+                      "value": "=\"suv\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "V87BZE"
+                      },
+                      "property": "dialog.prereq",
+                      "value": "=\"false\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "V99mjJ"
+                      },
+                      "property": "dialog.continue",
+                      "value": "=\"true\""
+                    },
+                    {
+                      "$kind": "Microsoft.Foreach",
+                      "$designer": {
+                        "id": "0rHrTw"
+                      },
+                      "index": "dialog.foreach.index",
+                      "value": "dialog.foreach.value",
+                      "itemsProperty": "user.webscrapeCars",
+                      "actions": [
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "kgR2RJ"
+                          },
+                          "condition": "=contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.SetProperty",
+                              "$designer": {
+                                "id": "E42YYa"
+                              },
+                              "property": "dialog.prereq",
+                              "value": "=\"true\""
+                            }
+                          ],
+                          "elseActions": []
+                        },
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "PfXMEm"
+                          },
+                          "condition": "=contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "B5xK7a"
+                              },
+                              "condition": "=contains(dialog.continue, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.EditArray",
+                                  "$designer": {
+                                    "id": "LdrIr4"
+                                  },
+                                  "value": "${dialog.foreach.value}",
+                                  "changeType": "push",
+                                  "itemsProperty": "user.CrossoverSUVInfo"
+                                }
+                              ]
+                            }
+                          ],
+                          "elseActions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "ek8XgW"
+                              },
+                              "condition": "=!contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.SetProperty",
+                                  "$designer": {
+                                    "id": "tIE93k"
+                                  },
+                                  "property": "dialog.continue",
+                                  "value": "=\"false\""
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$kind": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "QgZ5Bf"
+                  },
+                  "activityProcessed": true,
+                  "dialog": "PurchaseCrossoversAndSUVDialog",
+                  "options": {
+                    "vehicletype": "${dialog.vehicletype}",
+                    "number": "${dialog.number}",
+                    "vehiclemodel": "${dialog.vehiclemodel}"
+                  }
+                }
+              ]
+            },
+            {
+              "value": "truck",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "lBmtgT"
+                  },
+                  "condition": "=user.TruckMinivanInfo == []",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "218Ayg"
+                      },
+                      "property": "dialog.check",
+                      "value": "=\"truck\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "1IjOvF"
+                      },
+                      "property": "dialog.prereq",
+                      "value": "=\"false\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "E3f2UB"
+                      },
+                      "property": "dialog.continue",
+                      "value": "=\"true\""
+                    },
+                    {
+                      "$kind": "Microsoft.Foreach",
+                      "$designer": {
+                        "id": "GEwvyw"
+                      },
+                      "index": "dialog.foreach.index",
+                      "value": "dialog.foreach.value",
+                      "itemsProperty": "user.webscrapeCars",
+                      "actions": [
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "OinG9G"
+                          },
+                          "condition": "=contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.SetProperty",
+                              "$designer": {
+                                "id": "MuGO36"
+                              },
+                              "property": "dialog.prereq",
+                              "value": "=\"true\""
+                            }
+                          ],
+                          "elseActions": []
+                        },
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "bX2uET"
+                          },
+                          "condition": "=contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "MhznAg"
+                              },
+                              "condition": "=contains(dialog.continue, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.EditArray",
+                                  "$designer": {
+                                    "id": "6ide5o"
+                                  },
+                                  "value": "${dialog.foreach.value}",
+                                  "changeType": "push",
+                                  "itemsProperty": "user.TruckMinivanInfo"
+                                }
+                              ]
+                            }
+                          ],
+                          "elseActions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "lY7ewZ"
+                              },
+                              "condition": "=!contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.SetProperty",
+                                  "$designer": {
+                                    "id": "C4A6og"
+                                  },
+                                  "property": "dialog.continue",
+                                  "value": "=\"false\""
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$kind": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "tatk4D"
+                  },
+                  "activityProcessed": true,
+                  "dialog": "PurchaseTruckDialog",
+                  "options": {
+                    "vehicletype": "${dialog.vehicletype}",
+                    "number": "${dialog.number}",
+                    "vehiclemodel": "${dialog.vehiclemodel}"
+                  }
+                }
+              ]
+            },
+            {
+              "value": "sedan",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "E4uubw"
+                  },
+                  "condition": "=user.SedanInfo == []",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "ZtZQsZ"
+                      },
+                      "property": "dialog.check",
+                      "value": "=\"sedan\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "FEsDWv"
+                      },
+                      "property": "dialog.prereq",
+                      "value": "=\"false\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "kqKRn7"
+                      },
+                      "property": "dialog.continue",
+                      "value": "=\"true\""
+                    },
+                    {
+                      "$kind": "Microsoft.Foreach",
+                      "$designer": {
+                        "id": "sYCzZw"
+                      },
+                      "index": "dialog.foreach.index",
+                      "value": "dialog.foreach.value",
+                      "itemsProperty": "user.webscrapeCars",
+                      "actions": [
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "CRAGWL"
+                          },
+                          "condition": "=contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.SetProperty",
+                              "$designer": {
+                                "id": "kukN7a"
+                              },
+                              "property": "dialog.prereq",
+                              "value": "=\"true\""
+                            }
+                          ],
+                          "elseActions": []
+                        },
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "kmwfIY"
+                          },
+                          "condition": "=contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "4fsTsN"
+                              },
+                              "condition": "=contains(dialog.continue, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.EditArray",
+                                  "$designer": {
+                                    "id": "OfHMtb"
+                                  },
+                                  "value": "${dialog.foreach.value}",
+                                  "changeType": "push",
+                                  "itemsProperty": "user.SedanInfo"
+                                }
+                              ]
+                            }
+                          ],
+                          "elseActions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "Id9wEJ"
+                              },
+                              "condition": "=!contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.SetProperty",
+                                  "$designer": {
+                                    "id": "avHyQW"
+                                  },
+                                  "property": "dialog.continue",
+                                  "value": "=\"false\""
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$kind": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "3yfDIP"
+                  },
+                  "activityProcessed": true,
+                  "dialog": "PurchaseSedanDialog",
+                  "options": {
+                    "vehicletype": "${dialog.vehicletype}",
+                    "number": "${dialog.number}",
+                    "vehiclemodel": "${dialog.vehiclemodel}"
+                  }
+                }
+              ]
+            },
+            {
+              "value": "hatchback",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "iuWbQ7"
+                  },
+                  "condition": "=user.HatchbackInfo == []",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "zUhC7o"
+                      },
+                      "property": "dialog.check",
+                      "value": "=\"hatchback\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "pMRggn"
+                      },
+                      "property": "dialog.prereq",
+                      "value": "=\"false\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "UVbcAK"
+                      },
+                      "property": "dialog.continue",
+                      "value": "=\"true\""
+                    },
+                    {
+                      "$kind": "Microsoft.Foreach",
+                      "$designer": {
+                        "id": "zw7B6n"
+                      },
+                      "index": "dialog.foreach.index",
+                      "value": "dialog.foreach.value",
+                      "itemsProperty": "user.webscrapeCars",
+                      "actions": [
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "iv09su"
+                          },
+                          "condition": "=contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.SetProperty",
+                              "$designer": {
+                                "id": "W7LW8a"
+                              },
+                              "property": "dialog.prereq",
+                              "value": "=\"true\""
+                            }
+                          ],
+                          "elseActions": []
+                        },
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "FMUvlf"
+                          },
+                          "condition": "=contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "dU0ZHA"
+                              },
+                              "condition": "=contains(dialog.continue, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.EditArray",
+                                  "$designer": {
+                                    "id": "aFTHDX"
+                                  },
+                                  "value": "${dialog.foreach.value}",
+                                  "changeType": "push",
+                                  "itemsProperty": "user.HatchbackInfo"
+                                }
+                              ]
+                            }
+                          ],
+                          "elseActions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "M5OrRB"
+                              },
+                              "condition": "=!contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.SetProperty",
+                                  "$designer": {
+                                    "id": "uIOLkO"
+                                  },
+                                  "property": "dialog.continue",
+                                  "value": "=\"false\""
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$kind": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "cg27RT"
+                  },
+                  "activityProcessed": true,
+                  "dialog": "PurchaseHatchbackDialog",
+                  "options": {
+                    "vehicletype": "${dialog.vehicletype}",
+                    "number": "${dialog.number}",
+                    "vehiclemodel": "${dialog.vehiclemodel}"
+                  }
+                }
+              ]
+            },
+            {
+              "value": "minivan",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "ykFB8S"
+                  },
+                  "condition": "=user.TruckMinivanInfo == []",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "n1aQKk"
+                      },
+                      "property": "dialog.check",
+                      "value": "=\"truck\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "Om6sJy"
+                      },
+                      "property": "dialog.prereq",
+                      "value": "=\"false\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "swoTCn"
+                      },
+                      "property": "dialog.continue",
+                      "value": "=\"true\""
+                    },
+                    {
+                      "$kind": "Microsoft.Foreach",
+                      "$designer": {
+                        "id": "f6dtEW"
+                      },
+                      "index": "dialog.foreach.index",
+                      "value": "dialog.foreach.value",
+                      "itemsProperty": "user.webscrapeCars",
+                      "actions": [
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "o4isVa"
+                          },
+                          "condition": "=contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.SetProperty",
+                              "$designer": {
+                                "id": "MAwgh9"
+                              },
+                              "property": "dialog.prereq",
+                              "value": "=\"true\""
+                            }
+                          ],
+                          "elseActions": []
+                        },
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "ptXPb3"
+                          },
+                          "condition": "=contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "2dGqCb"
+                              },
+                              "condition": "=contains(dialog.continue, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.EditArray",
+                                  "$designer": {
+                                    "id": "CenPNG"
+                                  },
+                                  "value": "${dialog.foreach.value}",
+                                  "changeType": "push",
+                                  "itemsProperty": "user.TruckMinivanInfo"
+                                }
+                              ]
+                            }
+                          ],
+                          "elseActions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "fXuMkf"
+                              },
+                              "condition": "=!contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.SetProperty",
+                                  "$designer": {
+                                    "id": "4PWzox"
+                                  },
+                                  "property": "dialog.continue",
+                                  "value": "=\"false\""
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$kind": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "cAPYRq"
+                  },
+                  "activityProcessed": true,
+                  "dialog": "PurchaseMinivanDialog",
+                  "options": {
+                    "vehicletype": "${dialog.vehicletype}",
+                    "number": "${dialog.number}",
+                    "vehiclemodel": "${dialog.vehiclemodel}"
+                  }
+                }
+              ]
+            },
+            {
+              "value": "past model",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "8ZeebZ"
+                  },
+                  "condition": "=user.PastModelInfo == []",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "oFTKlL"
+                      },
+                      "property": "dialog.check",
+                      "value": "=\"previous\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "z9S2j9"
+                      },
+                      "property": "dialog.prereq",
+                      "value": "=\"false\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "v0fjrM"
+                      },
+                      "property": "dialog.continue",
+                      "value": "=\"true\""
+                    },
+                    {
+                      "$kind": "Microsoft.Foreach",
+                      "$designer": {
+                        "id": "S5p7ul"
+                      },
+                      "index": "dialog.foreach.index",
+                      "value": "dialog.foreach.value",
+                      "itemsProperty": "user.webscrapeCars",
+                      "actions": [
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "arWHuK"
+                          },
+                          "condition": "=contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.SetProperty",
+                              "$designer": {
+                                "id": "Srj5mn"
+                              },
+                              "property": "dialog.prereq",
+                              "value": "=\"true\""
+                            }
+                          ],
+                          "elseActions": []
+                        },
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "nVFOUP"
+                          },
+                          "condition": "=contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "JenbNI"
+                              },
+                              "condition": "=contains(dialog.continue, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.EditArray",
+                                  "$designer": {
+                                    "id": "dfF8PP"
+                                  },
+                                  "value": "${dialog.foreach.value}",
+                                  "changeType": "push",
+                                  "itemsProperty": "user.PastModelInfo"
+                                }
+                              ]
+                            }
+                          ],
+                          "elseActions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "SMq5MM"
+                              },
+                              "condition": "=!contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.SetProperty",
+                                  "$designer": {
+                                    "id": "El3nHX"
+                                  },
+                                  "property": "dialog.continue",
+                                  "value": "=\"false\""
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$kind": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "Znok9l"
+                  },
+                  "activityProcessed": true,
+                  "dialog": "PurchasePastModelDialog",
+                  "options": {
+                    "vehicletype": "${dialog.vehicletype}",
+                    "number": "${dialog.number}",
+                    "vehiclemodel": "${dialog.vehiclemodel}"
+                  }
+                }
+              ]
+            },
+            {
+              "value": "environmental",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "MJYeDH"
+                  },
+                  "condition": "=user.EnvironmentalVehicleInfo== []",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "IhRdFi"
+                      },
+                      "property": "dialog.check",
+                      "value": "=\"environ\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "wj577l"
+                      },
+                      "property": "dialog.prereq",
+                      "value": "=\"false\""
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "9Wnwta"
+                      },
+                      "property": "dialog.continue",
+                      "value": "=\"true\""
+                    },
+                    {
+                      "$kind": "Microsoft.Foreach",
+                      "$designer": {
+                        "id": "xiyfQJ"
+                      },
+                      "index": "dialog.foreach.index",
+                      "value": "dialog.foreach.value",
+                      "itemsProperty": "user.webscrapeCars",
+                      "actions": [
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "yH5hir"
+                          },
+                          "condition": "=contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.SetProperty",
+                              "$designer": {
+                                "id": "9EYnm4"
+                              },
+                              "property": "dialog.prereq",
+                              "value": "=\"true\""
+                            }
+                          ],
+                          "elseActions": []
+                        },
+                        {
+                          "$kind": "Microsoft.IfCondition",
+                          "$designer": {
+                            "id": "1keYYF"
+                          },
+                          "condition": "=contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                          "actions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "Et4b3v"
+                              },
+                              "condition": "=contains(dialog.continue, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.EditArray",
+                                  "$designer": {
+                                    "id": "zbMKRs"
+                                  },
+                                  "value": "${dialog.foreach.value}",
+                                  "changeType": "push",
+                                  "itemsProperty": "user.EnvironmentalVehicleInfo"
+                                }
+                              ]
+                            }
+                          ],
+                          "elseActions": [
+                            {
+                              "$kind": "Microsoft.IfCondition",
+                              "$designer": {
+                                "id": "C0Oxp6"
+                              },
+                              "condition": "=!contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                              "actions": [
+                                {
+                                  "$kind": "Microsoft.SetProperty",
+                                  "$designer": {
+                                    "id": "KX2nXC"
+                                  },
+                                  "property": "dialog.continue",
+                                  "value": "=\"false\""
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$kind": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "yf3gK8"
+                  },
+                  "activityProcessed": true,
+                  "dialog": "PurchaseEnvironmentalVehicleDialog",
+                  "options": {
+                    "vehicletype": "${dialog.vehicletype}",
+                    "number": "${dialog.number}",
+                    "vehiclemodel": "${dialog.vehiclemodel}"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "lfc4Fb",
+            "comment": "If true send to purchase using price if false go to purchase using mpg"
+          },
+          "condition": "int(dialog.number) > 100"
+        }
+      ]
+    }
+  ],
+  "generator": "DetermineVehicleForPurchase.lg",
+  "recognizer": "DetermineVehicleForPurchase.lu.qna",
+  "id": "DetermineVehicleForPurchase"
+}

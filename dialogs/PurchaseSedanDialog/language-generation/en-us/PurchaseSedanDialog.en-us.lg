@@ -1,0 +1,82 @@
+[import](common.lg)
+
+# SendActivity_Kl2nOq()
+[Activity
+    Text = ${SendActivity_Kl2nOq_text()}
+]
+
+# SendActivity_Kl2nOq_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=civic-sedan&modelyear=2022
+# SendActivity_1xGM6C()
+[Activity
+    Text = ${SendActivity_1xGM6C_text()}
+]
+
+# SendActivity_1xGM6C_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-result?modelyear=2021&modelseries=clarity-fuel-cell?source=https%3a%2f%2fautomobiles.honda.com%2ftools%2fbuild-and-price-trims%3fmodelseries%3dclarity-fuel-cell%26modelyear%3d2021&statusCode=302#section=Powertrain&group=Powertrain&view=Exterior&angle=0&state=TTpaQzRGOE1HTlckRUM6TkgtNzMxUCRIQzp1bmRlZmluZWQkSUM6QkskTzokRjpGSUZTJEVDQzpCSyRFQ1g6&payment=&paymentType=
+# SendActivity_VPa68f()
+[Activity
+    Text = ${SendActivity_VPa68f_text()}
+]
+
+# SendActivity_VPa68f_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=clarity-plug-in-hybrid&modelyear=2021
+# SendActivity_WrkG2D()
+[Activity
+    Text = ${SendActivity_WrkG2D_text()}
+]
+
+# SendActivity_WrkG2D_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=civic-si-sedan&modelyear=2022
+# SendActivity_jcH6aH()
+[Activity
+    Text = ${SendActivity_jcH6aH_text()}
+]
+
+# SendActivity_jcH6aH_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?tw=hybrid&modelseries=accord-sedan&modelyear=2022
+# SendActivity_GyZ0ta()
+[Activity
+    Text = ${SendActivity_GyZ0ta_text()}
+]
+
+# SendActivity_GyZ0ta_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=accord-sedan&modelyear=2022
+# SendActivity_tcPRMK()
+[Activity
+    Text = ${SendActivity_tcPRMK_text()}
+]
+
+# SendActivity_tcPRMK_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=insight&modelyear=2022
+# ChoiceInput_Prompt_FuYoFX_text()
+- Select which option you would like to choose.
+# ChoiceInput_Prompt_FuYoFX()
+[Activity
+    Text = ${ChoiceInput_Prompt_FuYoFX_text()}
+]
+
+# SendActivity_b6nIZw()
+[Activity
+    Text = ${SendActivity_b6nIZw_text()}
+]
+
+# SendActivity_b6nIZw_text()
+- Check out these Sedan options:
+# SendActivity_dTcKEs_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[15]}```
+# SendActivity_dTcKEs()
+[Activity
+    Text = ${SendActivity_dTcKEs_text()}
+]
+
+# SendActivity_NOiKcJ_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[19]}```
+# SendActivity_NOiKcJ()
+[Activity
+    Text = ${SendActivity_NOiKcJ_text()}
+]

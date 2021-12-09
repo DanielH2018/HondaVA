@@ -1,0 +1,238 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "lg0Hza",
+    "name": "PurchaseSedanDialog",
+    "comment": ""
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "KwiSiE"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "b6nIZw"
+          },
+          "activity": "${SendActivity_b6nIZw()}"
+        },
+        {
+          "$kind": "Microsoft.Foreach",
+          "$designer": {
+            "id": "bIKKi8"
+          },
+          "index": "dialog.foreach.index",
+          "value": "dialog.foreach.value",
+          "itemsProperty": "user.SedanInfo",
+          "actions": [
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "uYbz1r"
+              },
+              "property": "dialog.line",
+              "value": "=split(dialog.foreach.value, '\"')"
+            },
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "v99DaL"
+              },
+              "condition": "=contains(dialog.line, \"name\")",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "AH4iJG"
+                  },
+                  "condition": "=contains(toLower(dialog.foreach.value), \"electricrange\")",
+                  "elseActions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "NOiKcJ"
+                      },
+                      "activity": "${SendActivity_NOiKcJ()}"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "dTcKEs"
+                      },
+                      "activity": "${SendActivity_dTcKEs()}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "e7CiB0"
+          },
+          "condition": false,
+          "elseActions": [
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "yCJnCY"
+              },
+              "condition": "dialog.vehiclemodel != \"\"",
+              "elseActions": [
+                {
+                  "$kind": "Microsoft.ChoiceInput",
+                  "$designer": {
+                    "id": "FuYoFX"
+                  },
+                  "defaultLocale": "en-us",
+                  "disabled": true,
+                  "maxTurnCount": 3,
+                  "alwaysPrompt": false,
+                  "allowInterruptions": false,
+                  "prompt": "${ChoiceInput_Prompt_FuYoFX()}",
+                  "unrecognizedPrompt": "",
+                  "invalidPrompt": "",
+                  "defaultValueResponse": "",
+                  "choiceOptions": {
+                    "includeNumbers": true,
+                    "inlineOrMore": ", or ",
+                    "inlineSeparator": ",",
+                    "inlineOr": "or"
+                  },
+                  "property": "dialog.vehiclemodel",
+                  "style": "heroCard",
+                  "choices": [
+                    "2022 Civic Sedan",
+                    "2022 Insight",
+                    "2022 Accord",
+                    "2022 Accord Hybrid",
+                    "2022 Civic Si Sedan",
+                    "2021 Clarity Plug-In Hybrid",
+                    "2021 Clarity Fuel Cell"
+                  ]
+                }
+              ],
+              "disabled": true
+            },
+            {
+              "$kind": "Microsoft.SwitchCondition",
+              "$designer": {
+                "id": "dStiwh"
+              },
+              "condition": "dialog.vehiclemodel",
+              "cases": [
+                {
+                  "value": "2022 Civic Sedan",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "Kl2nOq"
+                      },
+                      "activity": "${SendActivity_Kl2nOq()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2022 Insight",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "tcPRMK"
+                      },
+                      "activity": "${SendActivity_tcPRMK()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2022 Accord",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "GyZ0ta"
+                      },
+                      "activity": "${SendActivity_GyZ0ta()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2022 Accord Hybrid",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "jcH6aH"
+                      },
+                      "activity": "${SendActivity_jcH6aH()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2022 Civic Si Sedan",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "WrkG2D"
+                      },
+                      "activity": "${SendActivity_WrkG2D()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2021 Clarity Plug-In Hybrid",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "VPa68f"
+                      },
+                      "activity": "${SendActivity_VPa68f()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2021 Clarity Fuel Cell",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "1xGM6C"
+                      },
+                      "activity": "${SendActivity_1xGM6C()}",
+                      "disabled": true
+                    }
+                  ]
+                }
+              ],
+              "disabled": true
+            }
+          ],
+          "disabled": true
+        }
+      ]
+    }
+  ],
+  "generator": "PurchaseSedanDialog.lg",
+  "recognizer": "PurchaseSedanDialog.lu.qna",
+  "id": "PurchaseSedanDialog"
+}

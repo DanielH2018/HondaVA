@@ -1,0 +1,225 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "lL5Ykn",
+    "name": "PurchasePastModelDialog",
+    "comment": ""
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "BWgDqs"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "CLn6dt"
+          },
+          "activity": "${SendActivity_CLn6dt()}"
+        },
+        {
+          "$kind": "Microsoft.Foreach",
+          "$designer": {
+            "id": "D8Vaql"
+          },
+          "index": "dialog.foreach.index",
+          "value": "dialog.foreach.value",
+          "itemsProperty": "user.PastModelInfo",
+          "actions": [
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "VoxQy7"
+              },
+              "property": "dialog.line",
+              "value": "=split(dialog.foreach.value, '\"')"
+            },
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "qACu0p"
+              },
+              "condition": "=contains(dialog.line, \"name\")",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "QoJKxA"
+                  },
+                  "condition": "=contains(toLower(dialog.foreach.value), \"electricrange\")",
+                  "elseActions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "JyNkLu"
+                      },
+                      "activity": "${SendActivity_JyNkLu()}"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "KJdsxn"
+                      },
+                      "activity": "${SendActivity_KJdsxn()}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "CzRnc3"
+          },
+          "condition": false,
+          "elseActions": [
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "3nICDY"
+              },
+              "condition": "dialog.vehiclemodel != \"\"",
+              "elseActions": [
+                {
+                  "$kind": "Microsoft.ChoiceInput",
+                  "$designer": {
+                    "id": "rZh1bH"
+                  },
+                  "defaultLocale": "en-us",
+                  "disabled": true,
+                  "maxTurnCount": 3,
+                  "alwaysPrompt": false,
+                  "allowInterruptions": false,
+                  "prompt": "${ChoiceInput_Prompt_rZh1bH()}",
+                  "unrecognizedPrompt": "",
+                  "invalidPrompt": "",
+                  "defaultValueResponse": "",
+                  "choiceOptions": {
+                    "includeNumbers": true,
+                    "inlineOrMore": ", or ",
+                    "inlineSeparator": ",",
+                    "inlineOr": "or"
+                  },
+                  "property": "dialog.vehiclemodel",
+                  "style": "heroCard",
+                  "choices": [
+                    "2021 Civic Hatchback",
+                    "2021 Accord",
+                    "2021 CR-V",
+                    "2021 Accord Hybrid",
+                    "2021 CR-V Hybrid",
+                    "2021 Ridgeline"
+                  ]
+                }
+              ],
+              "disabled": true
+            },
+            {
+              "$kind": "Microsoft.SwitchCondition",
+              "$designer": {
+                "id": "PPP58B"
+              },
+              "condition": "dialog.vehiclemodel",
+              "cases": [
+                {
+                  "value": "2021 Civic Hatchback",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "pJp6WM"
+                      },
+                      "activity": "${SendActivity_pJp6WM()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2021 Accord",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "Odsf9W"
+                      },
+                      "activity": "${SendActivity_Odsf9W()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2021 CR-V",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "cZwx5f"
+                      },
+                      "activity": "${SendActivity_cZwx5f()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2021 Accord Hybrid",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "CZJkHX"
+                      },
+                      "activity": "${SendActivity_CZJkHX()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2021 CR-V Hybrid",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "E4LfJw"
+                      },
+                      "activity": "${SendActivity_E4LfJw()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2021 Ridgeline",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "BYwlYc"
+                      },
+                      "activity": "${SendActivity_BYwlYc()}",
+                      "disabled": true
+                    }
+                  ]
+                }
+              ],
+              "default": [],
+              "disabled": true
+            }
+          ],
+          "disabled": true
+        }
+      ]
+    }
+  ],
+  "generator": "PurchasePastModelDialog.lg",
+  "recognizer": "PurchasePastModelDialog.lu.qna",
+  "id": "PurchasePastModelDialog"
+}

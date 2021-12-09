@@ -1,0 +1,34 @@
+[import](common.lg)
+
+# SendActivity_JVdWFB()
+[Activity
+    Text = ${SendActivity_JVdWFB_text()}
+]
+
+# SendActivity_JVdWFB_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=civic-hatchback&modelyear=2022
+# SendActivity_GafnGV_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[15]}```
+# SendActivity_GafnGV()
+[Activity
+    Text = ${SendActivity_GafnGV_text()}
+]
+
+# SendActivity_a1KEUt_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[19]}```
+# SendActivity_a1KEUt()
+[Activity
+    Text = ${SendActivity_a1KEUt_text()}
+]
+
+# SendActivity_T0HOre()
+[Activity
+    Text = ${SendActivity_T0HOre_text()}
+]
+
+# SendActivity_T0HOre_text()
+- Check out these Hatchback options:

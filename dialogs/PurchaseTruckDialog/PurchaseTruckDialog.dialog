@@ -1,0 +1,103 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "wUwYuZ",
+    "name": "PurchaseTruckDialog",
+    "comment": ""
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "V1mmgM"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "0isyMG"
+          },
+          "activity": "${SendActivity_0isyMG()}"
+        },
+        {
+          "$kind": "Microsoft.Foreach",
+          "$designer": {
+            "id": "ZICXZW"
+          },
+          "index": "dialog.foreach.index",
+          "value": "dialog.foreach.value",
+          "itemsProperty": "user.TruckMinivanInfo",
+          "actions": [
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "MOIOru"
+              },
+              "property": "dialog.line",
+              "value": "=split(dialog.foreach.value, '\"')"
+            },
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "cjRNRH"
+              },
+              "condition": "=contains(dialog.line, \"name\")",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "Gq28iK"
+                  },
+                  "condition": "=contains(toLower(dialog.foreach.value), \"electricrange\")",
+                  "elseActions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "vIi2N1"
+                      },
+                      "activity": "${SendActivity_vIi2N1()}"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "dE0vPW"
+                      },
+                      "activity": "${SendActivity_dE0vPW()}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "k2Wj2R"
+          },
+          "condition": false,
+          "elseActions": [
+            {
+              "$kind": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "VbWER7"
+              },
+              "activity": "${SendActivity_VbWER7()}",
+              "disabled": true
+            }
+          ],
+          "disabled": true
+        }
+      ]
+    }
+  ],
+  "generator": "PurchaseTruckDialog.lg",
+  "recognizer": "PurchaseTruckDialog.lu.qna",
+  "id": "PurchaseTruckDialog"
+}

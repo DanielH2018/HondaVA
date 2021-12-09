@@ -1,0 +1,16 @@
+[import](common.lg)
+
+# TextInput_Prompt_VeYMRP()
+[Activity
+    Text = ${TextInput_Prompt_VeYMRP_text()}
+]
+
+# TextInput_Prompt_VeYMRP_text()
+- Enter a keyword to search by:
+# SendActivity_WxzwoQ_text()
+- ```Title: ${dialog.line[3]}
+Link to article: ${dialog.line[11]}```
+# SendActivity_WxzwoQ()
+[Activity
+    Text = ${SendActivity_WxzwoQ_text()}
+]

@@ -1,0 +1,24 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "Q2zJ8j",
+    "name": "PurchaseVehiclePriceDialog",
+    "comment": ""
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "g70YIU"
+      },
+      "actions": []
+    }
+  ],
+  "generator": "PurchaseVehiclePriceDialog.lg",
+  "recognizer": "PurchaseVehiclePriceDialog.lu.qna",
+  "id": "PurchaseVehiclePriceDialog"
+}

@@ -1,0 +1,24 @@
+{
+  "AzureTestBotHonda1.en-us": {
+    "rootDialog": true,
+    "triggers": {
+      "": [
+        "WelcomeDialog.en-us"
+      ],
+      "Cancel": [
+        "CancelDialog.en-us"
+      ],
+      "Help": [
+        "HelpDialog.en-us"
+      ],
+      "PurchaseVehicle": [
+        "DetermineVehicleForPurchase.en-us"
+      ],
+      "WebscrapeCars": "",
+      "WebscrapeNews": "",
+      "ViewNews": [
+        "NewsRoomDialog.en-us"
+      ]
+    }
+  }
+}

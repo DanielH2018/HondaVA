@@ -1,0 +1,865 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "name": "AzureTestBotHonda1",
+    "description": "",
+    "id": "4pM5gc"
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnConversationUpdateActivity",
+      "$designer": {
+        "id": "376720"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.Foreach",
+          "$designer": {
+            "id": "518944",
+            "name": "Loop: for each item"
+          },
+          "itemsProperty": "turn.Activity.membersAdded",
+          "actions": [
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "641773",
+                "name": "Branch: if/else"
+              },
+              "condition": "string(dialog.foreach.value.id) != string(turn.Activity.Recipient.id)",
+              "actions": [
+                {
+                  "$kind": "Microsoft.SetProperties",
+                  "$designer": {
+                    "id": "HuYENN"
+                  },
+                  "assignments": [
+                    {
+                      "property": "user.SedanInfo",
+                      "value": "=createArray()"
+                    },
+                    {
+                      "property": "user.CrossoverSUVInfo",
+                      "value": "=createArray()"
+                    },
+                    {
+                      "property": "user.TruckMinivanInfo",
+                      "value": "=createArray()"
+                    },
+                    {
+                      "property": "user.HatchbackInfo",
+                      "value": "=createArray()"
+                    },
+                    {
+                      "property": "user.PastModelInfo",
+                      "value": "=createArray()"
+                    },
+                    {
+                      "property": "user.EnvironmentalVehicleInfo",
+                      "value": "=createArray()"
+                    },
+                    {
+                      "property": "user.webscrapeCars",
+                      "value": "=\"\""
+                    },
+                    {
+                      "property": "user.NewsRoom",
+                      "value": "=[]"
+                    }
+                  ]
+                },
+                {
+                  "$kind": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "PlH6iz"
+                  },
+                  "activityProcessed": true,
+                  "dialog": "WelcomeDialog"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$kind": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "e1i6lY",
+        "name": "Cancel"
+      },
+      "intent": "Cancel",
+      "actions": [
+        {
+          "$kind": "Microsoft.BeginDialog",
+          "$designer": {
+            "id": "FDsuIq"
+          },
+          "activityProcessed": true,
+          "dialog": "CancelDialog"
+        }
+      ],
+      "condition": "=turn.recognized.score > 0.9"
+    },
+    {
+      "$kind": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "9wETGs",
+        "name": "Help"
+      },
+      "intent": "Help",
+      "actions": [
+        {
+          "$kind": "Microsoft.BeginDialog",
+          "$designer": {
+            "id": "B0NP8m"
+          },
+          "activityProcessed": true,
+          "dialog": "HelpDialog"
+        }
+      ]
+    },
+    {
+      "$kind": "Microsoft.OnError",
+      "$designer": {
+        "id": "aLQGr7"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.TelemetryTrackEventAction",
+          "$designer": {
+            "id": "Aucn7t"
+          },
+          "eventName": "ErrorOccurred",
+          "properties": {
+            "Type": "=turn.dialogEvent.value.className",
+            "Exception": "=turn.dialogEvent.value"
+          }
+        },
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "2outgQ"
+          },
+          "activity": "${SendActivity_ErrorOccured()}"
+        },
+        {
+          "$kind": "Microsoft.TraceActivity",
+          "$designer": {
+            "id": "NVFqr5"
+          },
+          "name": "=turn.dialogEvent.value.className",
+          "valueType": "Exception",
+          "value": "=turn.dialogEvent.value",
+          "label": "ErrorOccurred"
+        }
+      ]
+    },
+    {
+      "$kind": "Microsoft.OnUnknownIntent",
+      "$designer": {
+        "id": "FOxcnx"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "IQMEuO"
+          },
+          "activity": "${SendActivity_DidNotUnderstand()}"
+        }
+      ]
+    },
+    {
+      "$kind": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "z4lHut",
+        "name": "PurchaseVehicle"
+      },
+      "intent": "PurchaseVehicle",
+      "actions": [
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "OrVkNK"
+          },
+          "property": "dialog.vehicletype",
+          "value": "=@vehicletype"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "dOdhEf"
+          },
+          "property": "dialog.vehicletype",
+          "value": "=@vehicle"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "XJ0lCs"
+          },
+          "property": "dialog.vehiclemodel",
+          "value": "= @model"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "wqChXf"
+          },
+          "value": "=string(@number)",
+          "property": "dialog.number"
+        },
+        {
+          "$kind": "Microsoft.BeginDialog",
+          "$designer": {
+            "id": "juKhVr"
+          },
+          "activityProcessed": true,
+          "dialog": "DetermineVehicleForPurchase",
+          "options": {
+            "vehicletype": "${dialog.vehicletype}",
+            "number": "${dialog.number}",
+            "vehiclemodel": "${dialog.vehiclemodel}"
+          }
+        }
+      ],
+      "condition": "= #PurchaseVehicle.Score >= 0.8",
+      "entities": []
+    },
+    {
+      "$kind": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "PXlGa5",
+        "name": "WebscrapeCars",
+        "comment": "This is used for testing purposes, remove before final release"
+      },
+      "intent": "WebscrapeCars",
+      "actions": [
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "4EO39Q"
+          },
+          "property": "dialog.webscrape_base_url",
+          "value": "='https://webscrapedatalake.blob.core.windows.net/scraperesults/'"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "I57lfc"
+          },
+          "property": "dialog.webscrape_params",
+          "value": "='?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacupx&se=2021-12-11T07:34:56Z&st=2021-11-23T23:34:56Z&spr=https&sig=xp1u3D6gQAHAH5Diy5hzK16D7OHhums2HqExrMdvw%2Fs%3D'"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "wvsXgk"
+          },
+          "property": "dialog.container_list_url",
+          "value": "=concat(concat(dialog.webscrape_base_url, dialog.webscrape_params), '&restype=container&comp=list')"
+        },
+        {
+          "$kind": "Microsoft.HttpRequest",
+          "$designer": {
+            "id": "E4Cxdi"
+          },
+          "resultProperty": "dialog.response_file_list",
+          "method": "GET",
+          "contentType": "application/xml",
+          "url": "=dialog.container_list_url"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "LAINUr"
+          },
+          "property": "dialog.files",
+          "value": "=xPath(dialog.response_file_list.content, '/EnumerationResults/Blobs/Blob/Name/text()')"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "B9pdER"
+          },
+          "property": "dialog.recent_car_file",
+          "value": "=last(where(dialog.files, x, startsWith(x, 'cars')))"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "MA7d6w"
+          },
+          "property": "dialog.file_url",
+          "value": "=concat(concat(dialog.webscrape_base_url, dialog.recent_car_file), dialog.webscrape_params)"
+        },
+        {
+          "$kind": "Microsoft.HttpRequest",
+          "$designer": {
+            "id": "8ZUNDX"
+          },
+          "resultProperty": "dialog.web_response",
+          "method": "GET",
+          "url": "=string(dialog.file_url)",
+          "contentType": "application/json",
+          "responseType": "json"
+        },
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "61Bk2J"
+          },
+          "condition": "dialog.web_response.statusCode == 200",
+          "elseActions": [
+            {
+              "$kind": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "5nedXt"
+              },
+              "activity": "${SendActivity_5nedXt()}"
+            }
+          ],
+          "actions": [
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "rrJrVf"
+              },
+              "property": "user.webscrapeCars",
+              "value": "=split(string(dialog.web_response.content), '{')"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "5pI4AX"
+              },
+              "property": "dialog.prop1",
+              "value": "=user.webscrapeCars[0]"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "PHgdgU"
+              },
+              "property": "dialog.prop2",
+              "value": "=user.webscrapeCars[1]"
+            },
+            {
+              "$kind": "Microsoft.EditArray",
+              "$designer": {
+                "id": "NCLu8x"
+              },
+              "changeType": "remove",
+              "itemsProperty": "user.webscrapeCars",
+              "value": "${dialog.prop1}"
+            },
+            {
+              "$kind": "Microsoft.EditArray",
+              "$designer": {
+                "id": "gfXOWF"
+              },
+              "changeType": "remove",
+              "itemsProperty": "user.webscrapeCars",
+              "value": "${dialog.prop2}"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "trizbJ"
+              },
+              "property": "dialog.check",
+              "value": "=\"sedan\""
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "yq40Qw"
+              },
+              "property": "dialog.prereq",
+              "value": "=\"false\""
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "XaGPlb"
+              },
+              "property": "dialog.continue",
+              "value": "=\"true\""
+            },
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "k7cmAD"
+              },
+              "condition": "=user.SedanInfo== []",
+              "actions": [
+                {
+                  "$kind": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "J1lPs3"
+                  },
+                  "activity": "${SendActivity_J1lPs3()}"
+                }
+              ],
+              "elseActions": [
+                {
+                  "$kind": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "hKZdep"
+                  },
+                  "activity": "${SendActivity_hKZdep()}"
+                }
+              ]
+            },
+            {
+              "$kind": "Microsoft.Foreach",
+              "$designer": {
+                "id": "RAFTXO"
+              },
+              "index": "dialog.foreach.index",
+              "value": "dialog.foreach.value",
+              "itemsProperty": "user.webscrapeCars",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "cCLpj2"
+                  },
+                  "condition": "=contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\")",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "rCGSTd"
+                      },
+                      "property": "dialog.prereq",
+                      "value": "=\"true\""
+                    }
+                  ],
+                  "elseActions": []
+                },
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "p2piRJ"
+                  },
+                  "condition": "=contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.IfCondition",
+                      "$designer": {
+                        "id": "B6kIWm"
+                      },
+                      "condition": "=contains(dialog.continue, \"true\")",
+                      "actions": [
+                        {
+                          "$kind": "Microsoft.SendActivity",
+                          "$designer": {
+                            "id": "7vHmuL"
+                          },
+                          "activity": "${SendActivity_7vHmuL()}",
+                          "disabled": true
+                        },
+                        {
+                          "$kind": "Microsoft.EditArray",
+                          "$designer": {
+                            "id": "Qqjw2V"
+                          },
+                          "value": "${dialog.foreach.value}",
+                          "changeType": "push",
+                          "itemsProperty": "user.SedanInfo"
+                        }
+                      ]
+                    }
+                  ],
+                  "elseActions": [
+                    {
+                      "$kind": "Microsoft.IfCondition",
+                      "$designer": {
+                        "id": "Muk9q8"
+                      },
+                      "condition": "=!contains(toLower(dialog.foreach.value), dialog.check) && !contains(dialog.foreach.value, \"name\") && contains(dialog.prereq, \"true\")",
+                      "actions": [
+                        {
+                          "$kind": "Microsoft.SetProperty",
+                          "$designer": {
+                            "id": "2bsatk"
+                          },
+                          "property": "dialog.continue",
+                          "value": "=\"false\""
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$kind": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "miYXSu"
+                  },
+                  "activity": "${SendActivity_miYXSu()}",
+                  "disabled": true
+                }
+              ]
+            },
+            {
+              "$kind": "Microsoft.Foreach",
+              "$designer": {
+                "id": "HhHkuA"
+              },
+              "index": "dialog.foreach.index",
+              "value": "dialog.foreach.value",
+              "itemsProperty": "user.SedanInfo",
+              "actions": [
+                {
+                  "$kind": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "m3EMNC"
+                  },
+                  "activity": "${SendActivity_m3EMNC()}",
+                  "disabled": true
+                },
+                {
+                  "$kind": "Microsoft.SetProperty",
+                  "$designer": {
+                    "id": "f5BYRM"
+                  },
+                  "property": "dialog.line",
+                  "value": "=split(dialog.foreach.value, '\"')"
+                },
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "qAnBzq"
+                  },
+                  "condition": "=contains(dialog.line, \"name\")",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.IfCondition",
+                      "$designer": {
+                        "id": "3Xm7Gp"
+                      },
+                      "condition": "=contains(toLower(dialog.foreach.value), \"electricrange\")",
+                      "elseActions": [
+                        {
+                          "$kind": "Microsoft.SendActivity",
+                          "$designer": {
+                            "id": "5Su1D1"
+                          },
+                          "activity": "${SendActivity_5Su1D1()}"
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "$kind": "Microsoft.SendActivity",
+                          "$designer": {
+                            "id": "32rzqI"
+                          },
+                          "activity": "${SendActivity_32rzqI()}"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$kind": "Microsoft.Foreach",
+                  "$designer": {
+                    "id": "VC2Fyi"
+                  },
+                  "index": "dialog.foreach.index2",
+                  "value": "dialog.foreach.value2",
+                  "itemsProperty": "dialog.line",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "FqsQ2H"
+                      },
+                      "activity": "${SendActivity_FqsQ2H()}",
+                      "disabled": true
+                    }
+                  ],
+                  "disabled": true
+                }
+              ]
+            },
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "y6H2Cn"
+              },
+              "condition": "=user.SedanInfo== []",
+              "actions": [
+                {
+                  "$kind": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "es5vQC"
+                  },
+                  "activity": "${SendActivity_es5vQC()}"
+                }
+              ],
+              "elseActions": [
+                {
+                  "$kind": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "v9qnpv"
+                  },
+                  "activity": "${SendActivity_v9qnpv()}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$kind": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "Iq2NEp",
+        "name": "WebscrapeNews",
+        "comment": "This is used for testing purposes, remove before final release"
+      },
+      "intent": "WebscrapeNews",
+      "actions": [
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "CwNaia"
+          },
+          "property": "dialog.webscrape_base_url",
+          "value": "='https://webscrapedatalake.blob.core.windows.net/scraperesults/'"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "yuDcn4"
+          },
+          "property": "dialog.webscrape_params",
+          "value": "='?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacupx&se=2021-12-11T07:34:56Z&st=2021-11-23T23:34:56Z&spr=https&sig=xp1u3D6gQAHAH5Diy5hzK16D7OHhums2HqExrMdvw%2Fs%3D'"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "uiHKSB"
+          },
+          "property": "dialog.container_list_url",
+          "value": "=concat(concat(dialog.webscrape_base_url, dialog.webscrape_params), '&restype=container&comp=list')"
+        },
+        {
+          "$kind": "Microsoft.HttpRequest",
+          "$designer": {
+            "id": "i5wUht"
+          },
+          "resultProperty": "dialog.response_file_list",
+          "method": "GET",
+          "contentType": "application/xml",
+          "url": "=dialog.container_list_url"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "zRgHXN"
+          },
+          "property": "dialog.files",
+          "value": "=xPath(dialog.response_file_list.content, '/EnumerationResults/Blobs/Blob/Name/text()')"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "s36jJU"
+          },
+          "property": "dialog.recent_car_file",
+          "value": "=last(where(dialog.files, x, startsWith(x, 'news')))"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "aufLjw"
+          },
+          "property": "dialog.file_url",
+          "value": "=concat(concat(dialog.webscrape_base_url, dialog.recent_car_file), dialog.webscrape_params)"
+        },
+        {
+          "$kind": "Microsoft.HttpRequest",
+          "$designer": {
+            "id": "xGVPBI"
+          },
+          "resultProperty": "dialog.web_response",
+          "method": "GET",
+          "url": "=string(dialog.file_url)",
+          "contentType": "application/json",
+          "responseType": "json"
+        },
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "eYqAaD"
+          },
+          "condition": "dialog.web_response.statusCode == 200",
+          "elseActions": [
+            {
+              "$kind": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "oFSjp5"
+              },
+              "activity": "${SendActivity_oFSjp5()}"
+            }
+          ],
+          "actions": [
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "haeG9f"
+              },
+              "property": "dialog.json",
+              "value": "=json(string(dialog.web_response.content))"
+            },
+            {
+              "$kind": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "t2p4TX"
+              },
+              "activity": "${SendActivity_t2p4TX()}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$kind": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "fu8uOB",
+        "name": "ViewNews"
+      },
+      "intent": "ViewNews",
+      "actions": [
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "eSnRn5"
+          },
+          "actions": [
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "LBWeBn"
+              },
+              "property": "dialog.webscrape_base_url",
+              "value": "='https://webscrapedatalake.blob.core.windows.net/scraperesults/'"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "u78dBC"
+              },
+              "property": "dialog.webscrape_params",
+              "value": "='?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacupx&se=2021-12-11T07:34:56Z&st=2021-11-23T23:34:56Z&spr=https&sig=xp1u3D6gQAHAH5Diy5hzK16D7OHhums2HqExrMdvw%2Fs%3D'"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "XMHsGQ"
+              },
+              "property": "dialog.container_list_url",
+              "value": "=concat(concat(dialog.webscrape_base_url, dialog.webscrape_params), '&restype=container&comp=list')"
+            },
+            {
+              "$kind": "Microsoft.HttpRequest",
+              "$designer": {
+                "id": "2TPZBo"
+              },
+              "resultProperty": "dialog.response_file_list",
+              "method": "GET",
+              "contentType": "application/xml",
+              "url": "=dialog.container_list_url"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "EyeP2m"
+              },
+              "property": "dialog.files",
+              "value": "=xPath(dialog.response_file_list.content, '/EnumerationResults/Blobs/Blob/Name/text()')"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "lFlAW6"
+              },
+              "property": "dialog.recent_car_file",
+              "value": "=last(where(dialog.files, x, startsWith(x, 'news')))"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "v2xB95"
+              },
+              "property": "dialog.file_url",
+              "value": "=concat(concat(dialog.webscrape_base_url, dialog.recent_car_file), dialog.webscrape_params)"
+            },
+            {
+              "$kind": "Microsoft.HttpRequest",
+              "$designer": {
+                "id": "tzdWVo"
+              },
+              "resultProperty": "dialog.web_response",
+              "method": "GET",
+              "url": "=string(dialog.file_url)",
+              "contentType": "application/json",
+              "responseType": "json"
+            },
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "7L1Jbu"
+              },
+              "condition": "dialog.web_response.statusCode == 200",
+              "elseActions": [
+                {
+                  "$kind": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "DvFWjS"
+                  },
+                  "activity": "${SendActivity_DvFWjS()}"
+                }
+              ],
+              "actions": [
+                {
+                  "$kind": "Microsoft.SetProperty",
+                  "$designer": {
+                    "id": "GHtly6"
+                  },
+                  "property": "dialog.NewsRoom",
+                  "value": "=string(dialog.web_response.content)"
+                },
+                {
+                  "$kind": "Microsoft.SetProperty",
+                  "$designer": {
+                    "id": "h0Tyc9"
+                  },
+                  "value": "=split(dialog.NewsRoom, \"{\")",
+                  "property": "user.NewsRoom"
+                }
+              ]
+            }
+          ],
+          "condition": "=user.NewsRoom == []"
+        },
+        {
+          "$kind": "Microsoft.BeginDialog",
+          "$designer": {
+            "id": "WbVVls"
+          },
+          "activityProcessed": true,
+          "dialog": "NewsRoomDialog"
+        }
+      ]
+    }
+  ],
+  "generator": "AzureTestBotHonda1.lg",
+  "id": "AzureTestBotHonda1",
+  "recognizer": "AzureTestBotHonda1.lu.qna"
+}

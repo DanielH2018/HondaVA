@@ -1,0 +1,215 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "WgpVck",
+    "name": "PurchaseCrossoversAndSUVDialog",
+    "comment": ""
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "sFfhK5"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "hyuDaI"
+          },
+          "activity": "${SendActivity_hyuDaI()}"
+        },
+        {
+          "$kind": "Microsoft.Foreach",
+          "$designer": {
+            "id": "GBW0bP"
+          },
+          "index": "dialog.foreach.index",
+          "value": "dialog.foreach.value",
+          "itemsProperty": "user.CrossoverSUVInfo",
+          "actions": [
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "KPNh7X"
+              },
+              "property": "dialog.line",
+              "value": "=split(dialog.foreach.value, '\"')"
+            },
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "bzTTJd"
+              },
+              "condition": "=contains(dialog.line, \"name\")",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "oyLkuL"
+                  },
+                  "condition": "=contains(toLower(dialog.foreach.value), \"electricrange\")",
+                  "elseActions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "jakyf4"
+                      },
+                      "activity": "${SendActivity_jakyf4()}"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "Oyz1si"
+                      },
+                      "activity": "${SendActivity_Oyz1si()}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "eLSZv5",
+            "comment": "Check for price or gas value"
+          },
+          "condition": false,
+          "elseActions": [
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "yy2oTR",
+                "comment": "Check for model type"
+              },
+              "condition": "dialog.vehiclemodel != \"\"",
+              "elseActions": [
+                {
+                  "$kind": "Microsoft.ChoiceInput",
+                  "$designer": {
+                    "id": "DxffIe"
+                  },
+                  "defaultLocale": "en-us",
+                  "disabled": true,
+                  "maxTurnCount": 3,
+                  "alwaysPrompt": false,
+                  "allowInterruptions": false,
+                  "unrecognizedPrompt": "",
+                  "invalidPrompt": "",
+                  "defaultValueResponse": "",
+                  "prompt": "${ChoiceInput_Prompt_DxffIe()}",
+                  "choiceOptions": {
+                    "includeNumbers": true,
+                    "inlineOrMore": ", or ",
+                    "inlineOr": " or ",
+                    "inlineSeparator": ", "
+                  },
+                  "choices": [
+                    "2022 HR-V",
+                    "2022 CR-V",
+                    "2022 CR-V Hybrid",
+                    "2021 Passport",
+                    "2022 Pilot"
+                  ],
+                  "style": "heroCard",
+                  "property": "dialog.vehiclemodel",
+                  "recognizerOptions": {
+                    "recognizeOrdinals": true
+                  }
+                }
+              ],
+              "disabled": true
+            },
+            {
+              "$kind": "Microsoft.SwitchCondition",
+              "$designer": {
+                "id": "Mshg6B"
+              },
+              "condition": "dialog.vehiclemodel",
+              "cases": [
+                {
+                  "value": "2022 HR-V",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "eF82lJ"
+                      },
+                      "activity": "${SendActivity_eF82lJ()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2022 CR-V",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "1NQ2wm"
+                      },
+                      "activity": "${SendActivity_1NQ2wm()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2022 CR-V Hybrid",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "Uvj4ew"
+                      },
+                      "activity": "${SendActivity_Uvj4ew()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2021 Passport",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "uwmLeP"
+                      },
+                      "activity": "${SendActivity_uwmLeP()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2022 Pilot",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "tK7FgL"
+                      },
+                      "activity": "${SendActivity_tK7FgL()}",
+                      "disabled": true
+                    }
+                  ]
+                }
+              ],
+              "disabled": true
+            }
+          ],
+          "disabled": true
+        }
+      ]
+    }
+  ],
+  "generator": "PurchaseCrossoversAndSUVDialog.lg",
+  "recognizer": "PurchaseCrossoversAndSUVDialog.lu.qna",
+  "id": "PurchaseCrossoversAndSUVDialog"
+}

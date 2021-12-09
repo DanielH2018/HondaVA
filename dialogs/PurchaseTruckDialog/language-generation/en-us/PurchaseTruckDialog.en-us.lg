@@ -1,0 +1,35 @@
+[import](common.lg)
+
+# SendActivity_VbWER7()
+[Activity
+    Text = ${SendActivity_VbWER7_text()}
+]
+
+# SendActivity_VbWER7_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=ridgeline&modelyear=2022
+
+# SendActivity_dE0vPW_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[15]}```
+# SendActivity_dE0vPW()
+[Activity
+    Text = ${SendActivity_dE0vPW_text()}
+]
+
+# SendActivity_vIi2N1_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[19]}```
+# SendActivity_vIi2N1()
+[Activity
+    Text = ${SendActivity_vIi2N1_text()}
+]
+
+# SendActivity_0isyMG()
+[Activity
+    Text = ${SendActivity_0isyMG_text()}
+]
+
+# SendActivity_0isyMG_text()
+- Check out these Minivan and Truck options:

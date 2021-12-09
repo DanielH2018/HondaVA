@@ -1,0 +1,145 @@
+[import](common.lg)
+
+# SendActivity_ErrorOccured()
+[Activity
+    Text = ${SendActivity_ErrorOccured_text()}
+]
+
+# SendActivity_ErrorOccured_text()
+- Oops, looks like I'm stuck. Can you try to ask me in a different way?
+- Looks like I'm all mixed up. Let's try asking again, but maybe rephrase your request?
+- Sorry, it looks like something went wrong. Can you please try again?
+
+# SendActivity_DidNotUnderstand()
+[Activity
+    Text = ${SendActivity_DidNotUnderstand_text()}
+]
+
+# SendActivity_DidNotUnderstand_text()
+- I'm not sure I understand. Can you please try again?
+- Hmm, I don't understand. Can you try to ask me in a different way.
+- I didn't get that. Would you mind rephrasing and try it again.
+# SendActivity_jRnVra_text()
+- ${dialog.web_response.content}
+# SendActivity_jRnVra()
+[Activity
+    Text = ${SendActivity_jRnVra_text()}
+]
+
+# SendActivity_5nedXt()
+[Activity
+    Text = ${SendActivity_5nedXt_text()}
+]
+
+# SendActivity_5nedXt_text()
+- WARNING: Failed Request
+# SendActivity_t2p4TX_text()
+- ${string(dialog.json)}
+# SendActivity_t2p4TX()
+[Activity
+    Text = ${SendActivity_t2p4TX_text()}
+]
+
+# SendActivity_oFSjp5_text()
+- WARNING: Failed Request
+# SendActivity_oFSjp5()
+[Activity
+    Text = ${SendActivity_oFSjp5_text()}
+]
+
+# SendActivity_tyVZc2_text()
+- TRUE!
+# SendActivity_tyVZc2()
+[Activity
+    Text = ${SendActivity_tyVZc2_text()}
+]
+
+# SendActivity_7vHmuL_text()
+- TRUE!
+# SendActivity_7vHmuL()
+[Activity
+    Text = ${SendActivity_7vHmuL_text()}
+]
+
+# SendActivity_m3EMNC_text()
+- ${dialog.foreach.value}
+# SendActivity_m3EMNC()
+[Activity
+    Text = ${SendActivity_m3EMNC_text()}
+]
+
+# SendActivity_J1lPs3()
+[Activity
+    Text = ${SendActivity_J1lPs3_text()}
+]
+
+# SendActivity_J1lPs3_text()
+- true
+# SendActivity_hKZdep()
+[Activity
+    Text = ${SendActivity_hKZdep_text()}
+]
+
+# SendActivity_hKZdep_text()
+- false
+# SendActivity_es5vQC_text()
+- true
+# SendActivity_es5vQC()
+[Activity
+    Text = ${SendActivity_es5vQC_text()}
+]
+
+# SendActivity_v9qnpv_text()
+- false
+# SendActivity_v9qnpv()
+[Activity
+    Text = ${SendActivity_v9qnpv_text()}
+]
+
+# SendActivity_FqsQ2H()
+[Activity
+    Text = ${SendActivity_FqsQ2H_text()}
+]
+
+# SendActivity_FqsQ2H_text()
+- ${dialog.foreach.value2}
+# SendActivity_5Su1D1_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[19]}```
+# SendActivity_5Su1D1()
+[Activity
+    Text = ${SendActivity_5Su1D1_text()}
+]
+
+# SendActivity_32rzqI_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[15]}```
+# SendActivity_32rzqI()
+[Activity
+    Text = ${SendActivity_32rzqI_text()}
+]
+
+# SendActivity_miYXSu()
+-
+# SendActivity_r9SV6l_text()
+- ${string(dialog.json)}
+# SendActivity_r9SV6l()
+[Activity
+    Text = ${SendActivity_r9SV6l_text()}
+]
+
+# SendActivity_M5vDMX_text()
+- WARNING: Failed Request
+# SendActivity_M5vDMX()
+[Activity
+    Text = ${SendActivity_M5vDMX_text()}
+]
+
+# SendActivity_DvFWjS_text()
+- WARNING: Failed Request
+# SendActivity_DvFWjS()
+[Activity
+    Text = ${SendActivity_DvFWjS_text()}
+]

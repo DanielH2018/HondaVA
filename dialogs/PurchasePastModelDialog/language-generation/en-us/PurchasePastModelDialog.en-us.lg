@@ -1,0 +1,77 @@
+[import](common.lg)
+
+# SendActivity_pJp6WM()
+[Activity
+    Text = ${SendActivity_pJp6WM_text()}
+]
+
+# SendActivity_pJp6WM_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=civic-hatchback&modelyear=2021
+# SendActivity_Odsf9W()
+[Activity
+    Text = ${SendActivity_Odsf9W_text()}
+]
+
+# SendActivity_Odsf9W_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=accord-sedan&modelyear=2021
+# SendActivity_BYwlYc()
+[Activity
+    Text = ${SendActivity_BYwlYc_text()}
+]
+
+# SendActivity_BYwlYc_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=ridgeline&modelyear=2021
+# SendActivity_E4LfJw()
+[Activity
+    Text = ${SendActivity_E4LfJw_text()}
+]
+
+# SendActivity_E4LfJw_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=cr-v&modelyear=2021&tw=hybrid
+# SendActivity_CZJkHX()
+[Activity
+    Text = ${SendActivity_CZJkHX_text()}
+]
+
+# SendActivity_CZJkHX_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?tw=hybrid&modelseries=accord-sedan&modelyear=2021
+# SendActivity_cZwx5f()
+[Activity
+    Text = ${SendActivity_cZwx5f_text()}
+]
+
+# SendActivity_cZwx5f_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=cr-v&modelyear=2021
+# ChoiceInput_Prompt_rZh1bH_text()
+- Select which option you would like to choose.
+# ChoiceInput_Prompt_rZh1bH()
+[Activity
+    Text = ${ChoiceInput_Prompt_rZh1bH_text()}
+]
+
+
+# SendActivity_KJdsxn_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[15]}```
+# SendActivity_KJdsxn()
+[Activity
+    Text = ${SendActivity_KJdsxn_text()}
+]
+
+# SendActivity_JyNkLu_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[19]}```
+# SendActivity_JyNkLu()
+[Activity
+    Text = ${SendActivity_JyNkLu_text()}
+]
+
+# SendActivity_CLn6dt()
+[Activity
+    Text = ${SendActivity_CLn6dt_text()}
+]
+
+# SendActivity_CLn6dt_text()
+- Check out these car options from last year:

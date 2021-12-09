@@ -1,0 +1,50 @@
+[import](common.lg)
+
+# ChoiceInput_Prompt_UmVmNB_text()
+- What type of vehicle would you like to buy?
+# ChoiceInput_Prompt_UmVmNB()
+[Activity
+    Text = ${ChoiceInput_Prompt_UmVmNB_text()}
+]
+
+# SendActivity_A76pKP_text()
+- WARNING: Failed Request
+# SendActivity_A76pKP()
+[Activity
+    Text = ${SendActivity_A76pKP_text()}
+]
+
+# SendActivity_hx2ULi_text()
+- TRUE!
+# SendActivity_hx2ULi()
+[Activity
+    Text = ${SendActivity_hx2ULi_text()}
+]
+
+# SendActivity_93QfPM_text()
+- ${dialog.foreach.value}
+# SendActivity_93QfPM()
+[Activity
+    Text = ${SendActivity_93QfPM_text()}
+]
+
+# SendActivity_ob8ILd_text()
+- ${dialog.foreach.value}
+# SendActivity_ob8ILd()
+[Activity
+    Text = ${SendActivity_ob8ILd_text()}
+]
+
+# SendActivity_jkCEJm_text()
+- ${dialog.foreach.value}
+# SendActivity_jkCEJm()
+[Activity
+    Text = ${SendActivity_jkCEJm_text()}
+]
+
+# SendActivity_rnTFpV_text()
+- ${dialog.foreach.value}
+# SendActivity_rnTFpV()
+[Activity
+    Text = ${SendActivity_rnTFpV_text()}
+]

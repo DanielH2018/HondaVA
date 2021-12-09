@@ -1,0 +1,210 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "ZWlkhR",
+    "name": "PurchaseEnvironmentalVehicleDialog",
+    "comment": ""
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "rPFCsk"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "6eNFKg"
+          },
+          "activity": "${SendActivity_6eNFKg()}"
+        },
+        {
+          "$kind": "Microsoft.Foreach",
+          "$designer": {
+            "id": "biFTvQ"
+          },
+          "index": "dialog.foreach.index",
+          "value": "dialog.foreach.value",
+          "itemsProperty": "user.EnvironmentalVehicleInfo",
+          "actions": [
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "vHijxg"
+              },
+              "property": "dialog.line",
+              "value": "=split(dialog.foreach.value, '\"')"
+            },
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "dkkptv"
+              },
+              "condition": "=contains(dialog.line, \"name\")",
+              "actions": [
+                {
+                  "$kind": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "ofsyXC"
+                  },
+                  "condition": "=contains(toLower(dialog.foreach.value), \"electricrange\")",
+                  "elseActions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "jh8R63"
+                      },
+                      "activity": "${SendActivity_jh8R63()}"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "dUnqSb"
+                      },
+                      "activity": "${SendActivity_dUnqSb()}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "yyUuFC"
+          },
+          "elseActions": [
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "PrM8c8"
+              },
+              "condition": "dialog.vehiclemodel != \"\"",
+              "elseActions": [
+                {
+                  "$kind": "Microsoft.ChoiceInput",
+                  "$designer": {
+                    "id": "fANXZb"
+                  },
+                  "defaultLocale": "en-us",
+                  "disabled": true,
+                  "maxTurnCount": 3,
+                  "alwaysPrompt": false,
+                  "allowInterruptions": false,
+                  "prompt": "${ChoiceInput_Prompt_fANXZb()}",
+                  "unrecognizedPrompt": "",
+                  "invalidPrompt": "",
+                  "defaultValueResponse": "",
+                  "choiceOptions": {
+                    "includeNumbers": true,
+                    "inlineOrMore": ", or ",
+                    "inlineSeparator": ",",
+                    "inlineOr": "or"
+                  },
+                  "property": "dialog.vehiclemodel",
+                  "style": "heroCard",
+                  "choices": [
+                    "2022 Insight",
+                    "2022 Accord Hybrid",
+                    "2022 CR-V Hybrid",
+                    "2021 Clarity Plug-In Hybrid",
+                    "2021 Clarity Fuel Cell"
+                  ]
+                }
+              ],
+              "disabled": true
+            },
+            {
+              "$kind": "Microsoft.SwitchCondition",
+              "$designer": {
+                "id": "gtAsFg"
+              },
+              "condition": "dialog.vehiclemodel",
+              "cases": [
+                {
+                  "value": "2022 Insight",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "lwOevK"
+                      },
+                      "activity": "${SendActivity_lwOevK()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2022 Accord Hybrid",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "41Dmv7"
+                      },
+                      "activity": "${SendActivity_41Dmv7()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2022 CR-V Hybrid",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "uO5azn"
+                      },
+                      "activity": "${SendActivity_uO5azn()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2021 Clarity Plug-In Hybrid",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "xxvYOR"
+                      },
+                      "activity": "${SendActivity_xxvYOR()}",
+                      "disabled": true
+                    }
+                  ]
+                },
+                {
+                  "value": "2021 Clarity Fuel Cell",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "BoiaoE"
+                      },
+                      "activity": "${SendActivity_BoiaoE()}",
+                      "disabled": true
+                    }
+                  ]
+                }
+              ],
+              "disabled": true
+            }
+          ],
+          "condition": false,
+          "disabled": true
+        }
+      ]
+    }
+  ],
+  "generator": "PurchaseEnvironmentalVehicleDialog.lg",
+  "recognizer": "PurchaseEnvironmentalVehicleDialog.lu.qna",
+  "id": "PurchaseEnvironmentalVehicleDialog"
+}

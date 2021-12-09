@@ -1,0 +1,69 @@
+[import](common.lg)
+
+# SendActivity_lwOevK()
+[Activity
+    Text = ${SendActivity_lwOevK_text()}
+]
+
+# SendActivity_lwOevK_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=insight&modelyear=2022
+# SendActivity_41Dmv7()
+[Activity
+    Text = ${SendActivity_41Dmv7_text()}
+]
+
+# SendActivity_41Dmv7_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?tw=hybrid&modelseries=accord-sedan&modelyear=2022
+# SendActivity_uO5azn()
+[Activity
+    Text = ${SendActivity_uO5azn_text()}
+]
+
+# SendActivity_uO5azn_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=cr-v&modelyear=2022&tw=hybrid
+# SendActivity_BoiaoE()
+[Activity
+    Text = ${SendActivity_BoiaoE_text()}
+]
+
+# SendActivity_BoiaoE_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-result?modelyear=2021&modelseries=clarity-fuel-cell?source=https%3a%2f%2fautomobiles.honda.com%2ftools%2fbuild-and-price-trims%3fmodelseries%3dclarity-fuel-cell%26modelyear%3d2021&statusCode=302#section=Powertrain&group=Powertrain&view=Exterior&angle=0&state=TTpaQzRGOE1HTlckRUM6TkgtNzMxUCRIQzp1bmRlZmluZWQkSUM6QkskTzokRjpGSUZTJEVDQzpCSyRFQ1g6&payment=&paymentType=
+# SendActivity_xxvYOR()
+[Activity
+    Text = ${SendActivity_xxvYOR_text()}
+]
+
+# SendActivity_xxvYOR_text()
+- Click here to start your build: https://automobiles.honda.com/tools/build-and-price-trimwalk?modelseries=clarity-plug-in-hybrid&modelyear=2021
+# ChoiceInput_Prompt_fANXZb_text()
+- Select which option you would like to choose.
+# ChoiceInput_Prompt_fANXZb()
+[Activity
+    Text = ${ChoiceInput_Prompt_fANXZb_text()}
+]
+
+# SendActivity_dUnqSb_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[15]}```
+# SendActivity_dUnqSb()
+[Activity
+    Text = ${SendActivity_dUnqSb_text()}
+]
+
+# SendActivity_jh8R63_text()
+- ```Model: ${dialog.line[3]}
+Price: ${dialog.line[7]}
+Click Here to Build: ${dialog.line[19]}```
+# SendActivity_jh8R63()
+[Activity
+    Text = ${SendActivity_jh8R63_text()}
+]
+
+# SendActivity_6eNFKg()
+[Activity
+    Text = ${SendActivity_6eNFKg_text()}
+]
+
+# SendActivity_6eNFKg_text()
+- Check out these Electric Car options:

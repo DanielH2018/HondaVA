@@ -1,0 +1,382 @@
+# Cancel
+- cancel
+- quit
+- abort
+- exit
+- never mind
+- forget about it
+- just stop already
+- end this now
+
+# Help
+- help
+- im stuck
+- how do you work
+- what can you do
+- what can you help me with
+- i need help
+- i need some assistance
+
+# None
+- where is my car?
+- I want to order a pizza
+- place an item on hold
+- Is it going to rain?
+- turn on the lights
+- check my account balance
+- do unicorns really exist
+- duck
+
+# PurchaseVehicle
+> Purchase car, vehicle type training
+- purchase a car
+- purchase a vehicle
+- buy a car
+- buy a vehicle
+- buy a {vehicletype = SUV}
+- purchase {vehicletype = Truck}
+- {vehicletype = Trucks} for sale
+- Purchase {vehicletype = Sedans}
+- I want to buy a car
+- I want to purchase a vehicle
+- I want to buy a {vehicletype = suv}?
+- I want to buy a {vehicletype = hatchback}
+- I want to buy a {vehicletype = sedan}?
+- I want to buy a {vehicletype = truck}
+- I want to buy a {vehicletype = minivan}
+- I want to buy a {vehicletype = crossover}
+- I want to buy a {vehicletype = hybrid}?
+- I want to purchase a {vehicletype = suv}
+- I want to purchase a {vehicletype = hatchback}
+- I want to purchase a {vehicletype = sedan}?
+- I want to purchase a {vehicletype = truck}
+- I want to purchase a {vehicletype = minivan}?
+- I want to purchase a {vehicletype = crossover}
+- I want to purchase a {vehicletype = hybrid}
+- Can I buy a {vehicletype = suv}
+- Can I buy a {vehicletype = hatchback}?
+- Can I buy a {vehicletype = sedan}
+- Can I buy a {vehicletype = truck}
+- Can I buy a {vehicletype = minivan}?
+- Can I buy a {vehicletype = crossover}
+- Can I buy a {vehicletype = hybrid}?
+- Can I get a {vehicletype = suv}
+- Can I get a {vehicletype = hatchback}
+- Can I get a {vehicletype = sedan}.
+- Can I get a {vehicletype = truck}
+- Can I get a {vehicletype = minivan}
+- Can I get a {vehicletype = crossover}.
+- Can I get a {vehicletype = hybrid}?
+- I want to get a {vehicletype = suv}
+- I want to get a {vehicletype = hatchback}
+- I want to get a {vehicletype = sedan}.
+- I want to get a {vehicletype = truck}
+- I want to get a {vehicletype = minivan}
+- I want to get a {vehicletype = crossover}?
+- I want to get a {vehicletype = hybrid}
+- Can I purchase a {vehicletype = suv}?
+- Can I purchase a {vehicletype = hatchback}.
+- Can I purchase a {vehicletype = sedan}.
+- Can I purchase a {vehicletype = truck}?
+- Can I purchase a {vehicletype = minivan}
+- Can I purchase a {vehicletype = crossover}?
+- Can I purchase a {vehicletype = hybrid}
+- Can I buy a {vehicletype = suv}?
+- Can I buy a {vehicletype = hatchback}
+- Can I buy a {vehicletype = sedan}
+- Can I buy a {vehicletype = truck}?
+- Can I buy a {vehicletype = minivan}
+- Can I buy a {vehicletype = crossover}?
+- Can I buy a {vehicletype = hybrid}
+- I want to buy an {vehicletype = environmentally} friendly vehicle
+- I want to get a {vehicletype = environmentally} friendly car.
+- Can I purchase a {vehicletype = electric} car
+- Can I buy an {vehicletype = electric} vehicle
+- What {vehicletype = environmental} cars do you have?
+- What {vehicletype = environmental} choices do you have?
+- What {vehicletype = hybrid} options are there
+- Do you have {vehicletype = suv}'s for sale
+- Are there {vehicletype = trucks} I can get.
+- Can I look at your {vehicletype = minivan} selection
+- I want an electric car
+- electric car options
+
+> Purchase a car price training
+- I'm looking for a car {comparison = over} 30,000
+- I want a car that cost {below = less than} $30000
+- I want a car {near = around} $31000
+- What {vehicletype = sedan} options are there {below = under} $40000
+- {vehicletype = hatchbacks} {above = over} $28,000
+- What cars are {below = under} $35000
+- What cars are {above = above} $30000
+- What cars are {above = over} $30000
+- What cars are {below = below} $35000
+- {vehicletype = trucks} {below = under} $28,000
+- cars {near = near} 50000
+- {vehicletype = hybrids} {near = close to} $27,000
+- Do you have a car {near = about} $43,000
+- Do you have any vehicles {near = around} $20,000
+- {vehicletype = trucks} {near = near} $34,000
+- What vehicles have a cost {above = greater than} 29000?
+
+> Purchase a car mileage training
+- I want to get a car with a {highway = highway} mileage of 35
+- What options are there for vehicles with a {city = city} milage of 40
+- cars with a milage of 35
+- cars with mileage {near = around} 36
+- I'd like a car with 40mpg on the {highway = freeway}
+- {vehicletype = SUV}'s that get 32mpg
+- what cars get {above = over} 30 miles per gallon
+- {vehicletype = Truck} with a milage of 32 in the {city = city}
+- {highway = highway} milage of 40
+- cars with milage {below = under} 40
+- What car options get {below = below} 40mpg in the {city = city}
+- {vehicletype = hatchback} with {city = city} mileage {above = above} 35
+- Cars with mpg of 35 in {city = town}
+- I want to buy one of the {vehicletype = previous years models}
+- What were the {vehicletype = past models}
+- I want to purchase an {vehicletype = older model}
+
+> Entities
+@ ml vehicletype
+@ ml above
+@ ml below
+@ ml near
+@ ml city
+@ ml highway
+@ prebuilt number
+
+@ list vehicle =
+	- past model :
+		- previous years models
+		- previous years model
+		- previous year models
+		- past model
+		- past models
+		- older model
+		- older models
+		- 2021 Civic Hatchback
+		- 2021 Civic Hatchbacks
+		- 2021 Civic Hatchback's
+		- 2021 Accord
+		- 2021 Accords
+		- 2021 Accord's
+		- 2021 CR-V
+		- 2021 CR-Vs
+		- 2021 CR-V's
+		- 2021 Accord Hybrid
+		- 2021 Accord Hybrids
+		- 2021 Accord Hybrid's
+		- 2021 CR-V Hybrid
+		- 2021 CR-V Hybrids
+		- 2021 CR-V Hybrid's
+		- 2021 Ridgeline
+		- 2021 Ridgelines
+		- 2021 Ridgeline's
+	- environmental :
+		- environmentally
+		- electric
+		- hybrid
+		- environmental
+		- hybrids
+	- hatchback :
+		- hatchback
+		- hatchbacks
+		- Civic Hatchback
+		- Civic Hatchbacks
+		- Civic Hatchback's
+		- Civic Type R
+		- Civic Type Rs
+		- Civic Type R's
+	- suv :
+		- suv
+		- suvs
+	- truck :
+		- truck
+		- trucks
+		- Ridgeline
+		- Ridgelines
+		- Ridgeline's
+	- sedan :
+		- sedan
+		- sedans
+		- Civic Sedan
+		- Civic Sedans
+		- Civic Sedan's
+		- Insights
+		- Insight
+		- Insight's
+		- Accord
+		- Accords
+		- Accord's
+		- Accord Hybrid
+		- Accord Hybrids
+		- Accord Hybrid's
+		- Civic Si Sedan
+		- Civic Si Sedans
+		- Civic Si Sedan's
+		- Civic Si
+		- Clarity Plug-in Hybrid
+		- Clarity Plug-in Hybrids
+		- Clarity Plug-in Hybrid's
+		- Clarity Plug-in
+		- Clarity Plug-ins
+		- Clarity Plug-in's
+		- Clarity Fuel Cell
+		- Clarity Fuel Cells
+		- Clarity Fuel Cell's
+	- minivan :
+		- minivan
+		- minivans
+		- Odyssey
+		- Odysseys
+		- Odyssey's
+	- crossover :
+		- crossover
+		- crossovers
+		- HR-V's
+		- HR-V
+		- HR-Vs
+		- HR Vs
+		- HR V
+		- HR V's
+		- CR-V's
+		- CR-V
+		- CR-Vs
+		- CR Vs
+		- CR V
+		- CR V's
+		- CR-V Hybrid's
+		- CR-V Hybrid
+		- CR-V Hybrids
+		- CR V Hybrid's
+		- CR V Hybrid
+		- CR V Hybrids
+		- Passport
+		- Passports
+		- Passport's
+		- Pilot
+		- Pilots
+		- Pilot's
+
+@ list model =
+	- 2022 HR-V :
+		- HR-V's
+		- HR-V
+		- HR-Vs
+		- HR Vs
+		- HR V
+		- HR V's
+	- 2022 CR-V :
+		- CR-V's
+		- CR-V
+		- CR-Vs
+		- CR Vs
+		- CR V
+		- CR V's
+	- 2022 CR-V Hybrid :
+		- CR-V Hybrid's
+		- CR-V Hybrid
+		- CR-V Hybrids
+		- CR V Hybrid's
+		- CR V Hybrid
+		- CR V Hybrids
+	- 2021 Passport :
+		- Passport
+		- Passports
+		- Passport's
+	- 2022 Pilot :
+		- Pilot
+		- Pilots
+		- Pilot's
+	- 2022 Civic Sedan :
+		- Civic Sedan
+		- Civic Sedans
+		- Civic Sedan's
+	- 2022 Insight :
+		- Insights
+		- Insight
+		- Insight's
+	- 2022 Accord :
+		- Accord
+		- Accords
+		- Accord's
+	- 2022 Accord Hybrid :
+		- Accord Hybrid
+		- Accord Hybrids
+		- Accord Hybrid's
+	- 2022 Civic Si Sedan :
+		- Civic Si Sedan
+		- Civic Si Sedans
+		- Civic Si Sedan's
+		- Civic Si
+	- 2022 Clarity Plug-in Hybrid :
+		- Clarity Plug-in Hybrid
+		- Clarity Plug-in Hybrids
+		- Clarity Plug-in Hybrid's
+		- Clarity Plug-in
+		- Clarity Plug-ins
+		- Clarity Plug-in's
+	- 2021 Clarity Fuel Cell :
+		- Clarity Fuel Cell
+		- Clarity Fuel Cells
+		- Clarity Fuel Cell's
+	- 2022 Civic Hatchback :
+		- Civic Hatchback
+		- Civic Hatchbacks
+		- Civic Hatchback's
+	- 2021 Civic Type R :
+		- Civic Type R
+		- Civic Type Rs
+		- Civic Type R's
+	- 2022 Odyssey :
+		- Odyssey
+		- Odysseys
+		- Odyssey's
+	- 2022 Ridgeline :
+		- Ridgeline
+		- Ridgelines
+		- Ridgeline's
+	- 2021 Civic Hatchback :
+		- 2021 Civic Hatchback
+		- 2021 Civic Hatchbacks
+		- 2021 Civic Hatchback's
+	- 2021 Accord :
+		- 2021 Accord
+		- 2021 Accords
+		- 2021 Accord's
+	- 2021 CR-V :
+		- 2021 CR-V
+		- 2021 CR-Vs
+		- 2021 CR-V's
+	- 2021 Accord Hybrid :
+		- 2021 Accord Hybrid
+		- 2021 Accord Hybrids
+		- 2021 Accord Hybrid's
+	- 2021 CR-V Hybrid :
+		- 2021 CR-V Hybrid
+		- 2021 CR-V Hybrids
+		- 2021 CR-V Hybrid's
+	- 2021 Ridgeline :
+		- 2021 Ridgeline
+		- 2021 Ridgelines
+		- 2021 Ridgeline's
+
+# Webscrape
+- webscrape
+
+# WebscrapeCars
+- scrape car
+# WebscrapeNews
+- scrape news scrape scrape
+
+# ViewNews
+- Honda news
+- news Honda
+- I want to see honda news
+- What's new with honda
+- What is honda up to
+- What has honda been working on
+- honda news updates
+- updates on honda news
+- news
